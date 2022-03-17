@@ -123,7 +123,7 @@ void lock_app(int pid, char *password_hash) {
 
   kill(pid, SIGSTOP);
 
-  if ((zenity = popen("zenity --password", "r")) != NULL) {
+  if ((zenity = popen("zenity --title='applock' --password", "r")) != NULL) {
 
     fgets(answer, sizeof(answer), zenity);
     printf("[lock_app] entered password : %s", answer);
