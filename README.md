@@ -2,7 +2,8 @@
 An applocker for linux
 
 # Dependencies
-applockes depends on libconfig and openssl
+applockes depends on libconfig and openssl.
+it uses zenity to make dialogues
 
 # Builing 
 to build applock, run 
