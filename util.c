@@ -106,6 +106,7 @@ void read_config_file(struct Config *c) {
 }
 
 int is_in_blocklist(char *cmdline, struct Config *c) {
+  /* check whether the program is in the blocklist */
   for (int i = 0; i < c->no_of_programs; i++) {
     if (strcmp(c->programs[i], trim(cmdline)) == 0) {
       return 1;
