@@ -73,7 +73,7 @@ void read_config_file(struct Config *c) {
   config_init(&cfg);
 
   /* Read the file. If there is an error, report it and exit. */
-  if (!config_read_file(&cfg, "config.cfg")) {
+  if (!config_read_file(&cfg, "/home/rosh/.config/app-lock/config")) {
     fprintf(stderr, "%s:%d - %s\n", config_error_file(&cfg),
             config_error_line(&cfg), config_error_text(&cfg));
     config_destroy(&cfg);
@@ -107,9 +107,15 @@ void read_config_file(struct Config *c) {
 
 int is_in_blocklist(char *cmdline, struct Config *c) {
   /* check whether the program is in the blocklist */
+
+  char *program_name;
+  program_name = (char *)malloc((100) * sizeof(char));
+  program_name = strtok(cmdline, " ");
   for (int i = 0; i < c->no_of_programs; i++) {
-    if (strcmp(c->programs[i], trim(cmdline)) == 0) {
-      return 1;
+    if (program_name) {
+      if (strcmp(c->programs[i], program_name) == 0) {
+        return 1;
+      }
     }
   }
   return 0;
@@ -133,7 +139,7 @@ void lock_app(int pid, char *password_hash) {
 
     answer[strcspn(answer, "\n")] = 0;
 
-    if (compare_hash(answer,password_hash)) {
+    if (compare_hash(answer, password_hash)) {
       printf("[lock_app] authenticated successfully\n");
       kill(pid, SIGCONT);
     } else {
