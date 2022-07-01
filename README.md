@@ -9,7 +9,8 @@ it uses zenity to make dialogues
 to build applock, run 
 
 ```
-gcc applock.c proc.c util.c -o applock `pkg-config --libs libconfig openssl`
+make 
+make install
 sudo ./applock
 ```
 
